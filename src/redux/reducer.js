@@ -1,6 +1,7 @@
 import ACTIONTYPES from "./types";
 
 const initialState = 0;
+const initialFetchState = [];
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -13,4 +14,13 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-export default reducer;
+const fetchReducer = (state = initialFetchState, action) => {
+    switch (action.type) {
+        case ACTIONTYPES.fetch:
+            return [...action.payload];
+        default:
+            return state;
+    }
+};
+
+export { fetchReducer, reducer };

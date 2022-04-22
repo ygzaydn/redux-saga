@@ -1,11 +1,15 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import createSagaMiddleware from "redux-saga";
 import "regenerator-runtime/runtime";
-import reducer from "./reducer";
+import { reducer, fetchReducer } from "./reducer";
 import rootSaga from "./saga";
 
 const sagaMiddleware = createSagaMiddleware();
+const rootReducer = combineReducers({
+    counter: reducer,
+    fetch: fetchReducer,
+});
 
-export const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
